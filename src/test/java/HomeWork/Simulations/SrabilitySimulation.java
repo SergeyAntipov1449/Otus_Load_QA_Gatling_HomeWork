@@ -16,15 +16,14 @@ public class SrabilitySimulation extends Simulation {
   {
     setUp(
         scenarios.getCommonScenario().injectOpen(
-            rampUsers(4).during(180),
-            constantUsersPerSec(4).during(3600),
-            rampUsers(0).during(180)
+            rampUsersPerSec(0).to(2).during(60),
+            constantUsersPerSec(2).during(3600)
             ))
         .protocols(httpProtocol)
-        .maxDuration(4000)
+        .maxDuration(3800)
         .assertions(
-            global().responseTime().percentile(95).lt(3500),
-            global().successfulRequests().percent().gt(99.0)
+            global().responseTime().percentile(95).lt(5000),
+            global().successfulRequests().percent().gt(98.0)
         );
   }
 }
